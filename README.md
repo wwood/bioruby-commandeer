@@ -22,42 +22,17 @@ The output is:
 cat: /not_a_file: No such file or directory
 	from spec/eg.rb:4:in `<main>'
 ```
-When a command fails (detected through a non-zero exit status), then a `Bio::CommandFailedException` exception is thrown. While you can catch these exceptions with begin/rescue, often the best to do is fail, especially if you are writing quick one-off scripts.
+When a command fails (as detected through a non-zero exit status), then a `Bio::CommandFailedException` exception is thrown. While you can catch these exceptions with begin/rescue, often the best to do is fail, especially if you are writing quick one-off scripts.
 
-Of course, when running commands such as this, make sure that
+Of course, when running commands such as this, take care not to trust the input directly from the command line, and especially not from a website. When in doubt, use `inspect` around the arguments to make sure that you don't run into (little bobby tables)[http://xkcd.com/327].
 
-Note: this software is under active development!
+Note: this software is under active development! Currently it is perhaps overly opinionated and as such not overly flexible.
 
 ## Installation
 
 ```sh
 gem install bio-commandeer
 ```
-
-## Usage
-
-```ruby
-require 'bio-commandeer'
-```
-
-The API doc is online. For more code examples see the test files in
-the source tree.
-
-## Project home page
-
-Information on the source tree, documentation, examples, issues and
-how to contribute, see
-
-  http://github.com/wwood/bioruby-commandeer
-
-The BioRuby community is on IRC server: irc.freenode.org, channel: #bioruby.
-
-## Cite
-
-If you use this software, please cite one of
-
-* [BioRuby: bioinformatics software for the Ruby programming language](http://dx.doi.org/10.1093/bioinformatics/btq475)
-* [Biogem: an effective tool-based approach for scaling up open source software development in bioinformatics](http://dx.doi.org/10.1093/bioinformatics/bts080)
 
 ## Biogems.info
 
