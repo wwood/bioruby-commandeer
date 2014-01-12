@@ -24,7 +24,7 @@ cat: /not_a_file: No such file or directory
 ```
 When a command fails (as detected through a non-zero exit status), then a `Bio::CommandFailedException` exception is thrown. While you can catch these exceptions with begin/rescue, often the best to do is fail, especially if you are writing quick one-off scripts.
 
-Of course, when running commands such as this, take care not to trust the input directly from the command line, and especially not from a website. When in doubt, use `inspect` around the arguments to make sure that you don't run into (little bobby tables)[http://xkcd.com/327].
+Of course, when running commands such as this, take care not to trust the input directly from the command line, and especially not from a website. When in doubt, use `inspect` around the arguments to make sure that you don't run into [little bobby tables](http://xkcd.com/327).
 
 Note: this software is under active development! Currently it is perhaps overly opinionated and as such not overly flexible.
 
