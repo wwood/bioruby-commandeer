@@ -41,7 +41,7 @@ On stderr this gives
  INFO bio-commandeer: Command finished with exitstatus 0"
 ```
 Or a logging can be given directly, so long as it has an `info` method:
-```
+```ruby
 Bio::Commandeer.run 'echo 5', :log=>my_logger
 ```
 
