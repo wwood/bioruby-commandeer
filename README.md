@@ -37,8 +37,8 @@ puts Bio::Commandeer.run 'echo 5', :log=>true
 ```
 On stderr this gives
 ```
- INFO bio-commandeer: Running command: echo 5\n"+
- INFO bio-commandeer: Command finished with exitstatus 0"
+ INFO bio-commandeer: Running command: echo 5
+ INFO bio-commandeer: Command finished with exitstatus 0
 ```
 Or a logging can be given directly, so long as it has an `info` method:
 ```ruby
