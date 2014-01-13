@@ -28,6 +28,24 @@ Of course, when running commands such as this, take care not to trust the input 
 
 Note: this software is under active development! Currently it is perhaps overly opinionated and as such not overly flexible.
 
+## Logging
+Commands run are logged with level info, if requested:
+```ruby
+require 'bio-commandeer'
+Bio::Log::CLI.logger("stderr"); Bio::Log::CLI.trace("info");
+puts Bio::Commandeer.run 'echo 5', :log=>true
+```
+On stderr this gives
+```
+ INFO bio-commandeer: Running command: echo 5\n"+
+ INFO bio-commandeer: Command finished with exitstatus 0"
+```
+Or a logging can be given directly, so long as it has an `info` method:
+```
+Bio::Commandeer.run 'echo 5', :log=>my_logger
+```
+
+
 ## Installation
 
 ```sh
