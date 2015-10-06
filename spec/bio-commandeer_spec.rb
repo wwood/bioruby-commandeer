@@ -3,15 +3,15 @@ require 'tempfile'
 
 describe "BioCommandeer" do
   it "should return stdout" do
-    Bio::Commandeer.run("echo 1 3").should == "1 3\n"
+    expect(Bio::Commandeer.run("echo 1 3")).to eq "1 3\n"
   end
 
   it 'should raise when exit status the command fails' do
-    expect {Bio::Commandeer.run("cat /definitelyNotAFile")}.to raise_error
+    expect{Bio::Commandeer.run("cat /definitelyNotAFile")}.to raise_error(Bio::CommandFailedException)
   end
 
   it 'should accept stdin' do
-    Bio::Commandeer.run('cat', :stdin => 'dog').should == "dog"
+    expect(Bio::Commandeer.run('cat', :stdin => 'dog')).to eq "dog"
   end
 
   it 'should do logging with bio-logger' do
@@ -26,9 +26,9 @@ describe "BioCommandeer" do
 
       status, stdout, stderr = systemu "RUBYLIB=$RUBYLIB:#{lib} ruby #{f.path}"
 
-      stderr.should == " INFO bio-commandeer: Running command: echo 5\n"+
+      expect(stderr).to eq " INFO bio-commandeer: Running command: echo 5\n"+
         " INFO bio-commandeer: Command finished with exitstatus 0\n"
-      stdout.should == "5\n"
+      expect(stdout).to eq "5\n"
     end
   end
 
@@ -46,9 +46,9 @@ describe "BioCommandeer" do
       status, stdout, stderr = systemu "RUBYLIB=$RUBYLIB:#{lib} ruby #{f.path}"
 
       # Note the source of the log
-      stderr.should == " INFO anotherlog: Running command: echo 50\n"+
+      expect(stderr).to eq " INFO anotherlog: Running command: echo 50\n"+
         " INFO anotherlog: Command finished with exitstatus 0\n"
-      stdout.should == "50\n"
+      expect(stdout).to eq "50\n"
     end
   end
 end
