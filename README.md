@@ -9,6 +9,7 @@ require 'bio-commandeer'
 Bio::Commandeer.run 'echo 5' #=> "5\n"
 ```
 The real advantage of bio-commandeer is that when something goes wrong, it tells you; you don't have go looking for the error. Take for instance this simple script:
+
 ```ruby
 #!/usr/bin/env ruby
 require 'bio-commandeer'
@@ -16,6 +17,7 @@ print Bio::Commandeer.run('echo 5')
 print Bio::Commandeer.run('cat /not_a_file')
 ```
 The output is:
+
 ```sh
 5
 <snip>/lib/bio-commandeer/commandeer.rb:32:in `run': Command returned non-zero exit status (1), likely indicating failure. Command run was cat /not_a_file and the STDERR was: (Bio::CommandFailedException)
@@ -30,17 +32,20 @@ Note: this software is under active development! Currently it is perhaps overly 
 
 ## Logging
 Commands run are logged with level info, if requested:
+
 ```ruby
 require 'bio-commandeer'
 Bio::Log::CLI.logger("stderr"); Bio::Log::CLI.trace("info");
 puts Bio::Commandeer.run 'echo 5', :log=>true
 ```
 On stderr this gives
+
 ```
  INFO bio-commandeer: Running command: echo 5
  INFO bio-commandeer: Command finished with exitstatus 0
 ```
 Or a logging can be given directly, so long as it has an `info` method:
+
 ```ruby
 Bio::Commandeer.run 'echo 5', :log=>my_logger
 ```
@@ -58,5 +63,5 @@ This Biogem is published at (http://biogems.info/index.html#bio-commandeer)
 
 ## Copyright
 
-Copyright (c) 2014 Ben J. Woodcroft. See LICENSE.txt for further details.
+Copyright (c) 2014-2015 Ben J. Woodcroft. See LICENSE.txt for further details.
 
