@@ -32,7 +32,7 @@ module Bio
       end
 
       if status.exitstatus != 0
-        raise Bio::CommandFailedException, "Command returned non-zero exit status (#{status.exitstatus}), likely indicating failure. Command run was #{command} and the STDERR was:\n#{stderr}\nSTDOUTT was: #{stdout}"
+        raise Bio::CommandFailedException, "Command returned non-zero exit status (#{status.exitstatus}), likely indicating failure. Command run was #{command} and the STDERR was:\n#{stderr}\nSTDOUT was: #{stdout}"
       end
 
       return stdout
