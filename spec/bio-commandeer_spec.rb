@@ -51,4 +51,12 @@ describe "BioCommandeer" do
       expect(stdout).to eq "50\n"
     end
   end
+
+  it 'should run to finish' do
+    obj = Bio::Commandeer.run_to_finish("cat /definitelyNotAFile")
+    expect(obj.stdout).to eq ""
+    expect(obj.status.exitstatus).to eq 1
+    expect(obj.stderr).to eq "cat: /definitelyNotAFile: No such file or directory\n"
+    expect(obj.command).to eq "cat /definitelyNotAFile"
+  end
 end

@@ -50,6 +50,13 @@ Or a logging can be given directly, so long as it has an `info` method:
 Bio::Commandeer.run 'echo 5', :log=>my_logger
 ```
 
+A command can also be run to completion without raising an errors using `run_to_finish`:
+```ruby
+require 'bio-commandeer'
+result = Bio::Commandeer.run_to_finish 'echo 5' #=> Bio::CommandResult
+result.stdout #=> "5\n"
+```
+
 
 ## Installation
 
