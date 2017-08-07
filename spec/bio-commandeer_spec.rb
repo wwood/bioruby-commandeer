@@ -59,4 +59,9 @@ describe "BioCommandeer" do
     expect(obj.stderr).to eq "cat: /definitelyNotAFile: No such file or directory\n"
     expect(obj.command).to eq "cat /definitelyNotAFile"
   end
+
+  it 'should raise if failed' do
+    obj = Bio::Commandeer.run_to_finish("cat /definitelyNotAFile")
+    expect{obj.raise_if_failed}.to raise_error(Bio::CommandFailedException)
+  end
 end
