@@ -1,4 +1,5 @@
 require 'systemu'
+require 'timeout'
 
 module Bio
   # See #run
@@ -9,6 +10,8 @@ module Bio
     # * options is a hash, with keys:
     # :stdin: a string that is the stdin
     # :log: if true, turn on logging. If given an object use it as the logger
+    # :timeout: number of seconds to allow the process to run for. If nil (the default),
+    #           no timeout.
     def self.run(command, options={})
       obj = run_to_finish(command, options)
       obj.raise_if_failed
@@ -34,7 +37,13 @@ module Bio
       end
       res = CommandResult.new
       res.command = command
-      res.status, res.stdout, res.stderr = systemu command, :stdin => options[:stdin]
+      begin
+        Timeout::timeout(options[:timeout]) do
+          res.status, res.stdout, res.stderr = systemu command, :stdin => options[:stdin]
+        end
+      rescue Timeout::Error => e
+        res.timed_out = true
+      end
 
       if @log
         @log.info "Command finished with exitstatus #{res.status.exitstatus}"
@@ -44,10 +53,12 @@ module Bio
   end
 
   class CommandResult
-    attr_accessor :stdout, :stderr, :command, :status
+    attr_accessor :stdout, :stderr, :command, :status, :timed_out
 
     def raise_if_failed
-      if @status.exitstatus != 0
+      if @timed_out
+        raise Bio::CommandFailedException, "Command timed out. Command run was #{command}."
+      elsif @status.exitstatus != 0
         raise Bio::CommandFailedException, "Command returned non-zero exit status (#{@status.exitstatus}), likely indicating failure. Command run was #{@command} and the STDERR was:\n#{@stderr}\nSTDOUT was: #{@stdout}"
       end
     end

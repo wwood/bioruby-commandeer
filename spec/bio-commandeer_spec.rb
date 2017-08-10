@@ -64,4 +64,10 @@ describe "BioCommandeer" do
     obj = Bio::Commandeer.run_to_finish("cat /definitelyNotAFile")
     expect{obj.raise_if_failed}.to raise_error(Bio::CommandFailedException)
   end
+
+  it 'should respect timeout' do
+    Bio::Commandeer.run "sleep 2"
+    expect { Bio::Commandeer.run "sleep 1", :timeout => 1}.
+      to raise_error(Bio::CommandFailedException)
+  end
 end
